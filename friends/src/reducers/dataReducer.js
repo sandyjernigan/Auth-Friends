@@ -3,7 +3,7 @@ import { GET_START, GET_SUCCESS, GET_FAILED } from "../actions";
 const initialState = {
     friends: [],
     isLoading: false,
-    errorMessage: null
+    errMsg: null
 }
 
 // Our reducer that handles the action(s)
@@ -23,7 +23,7 @@ export const dataReducer = (state = initialState, action) => {
                 ...state,
                 friends: action.payload,
 				fetching: false,
-				error: null
+				errMsg: null
 			}
 		}
     // action type FAILURE
@@ -31,7 +31,7 @@ export const dataReducer = (state = initialState, action) => {
 			return {
 				...state,
 				fetching: false,
-				error: action.payload.message,
+				errMsg: action.payload.message,
 			}
 		}
     default:

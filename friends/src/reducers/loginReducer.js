@@ -1,7 +1,7 @@
 import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED } from '../actions';
 
 const initialState = {
-  errorMessage: null
+  errMsg: null
 }
 
 // Our reducer that handles the action(s)
@@ -17,14 +17,14 @@ export const loginReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isLoading: false,
-				errorMessage: null,
+				errMsg: null,
 			}
 		}
 		case LOGIN_FAILED: {
 			return {
 				...state,
 				isLoading: false,
-				errorMessage: action.payload.message,
+				errMsg: action.payload.message,
 			}
 		}
     default:
