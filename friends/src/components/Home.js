@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route, NavLink, withRouter } from "react-router-dom"
 import { Friend, Friends, CreateFriend, UpdateFriend } from "./friends/"
-import PrivateRoute from './PrivateRoute'
 import Login from './Login'
 
 class Home extends React.Component {
@@ -22,7 +21,6 @@ class Home extends React.Component {
             <NavLink to="/new">Add a New Friend</NavLink>
             <button type="button" onClick={this.logout}>Logout</button>
           </nav>
-          {/* <p>{this.state.errMsg}</p> */}
         </header>
         <div className="home">
             <h2>Home</h2>

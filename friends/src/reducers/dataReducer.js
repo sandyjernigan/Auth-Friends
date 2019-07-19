@@ -18,7 +18,7 @@ export const dataReducer = (state = initialState, action) => {
     }
     // action type SUCCESS
 		case GET_SUCCESS: {
-      console.log(action.payload)
+			console.log("SUCCESS: " + action.payload)
 			return {
                 ...state,
                 friends: action.payload,

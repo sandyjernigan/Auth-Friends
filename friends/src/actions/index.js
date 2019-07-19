@@ -16,8 +16,13 @@ export function getData() {
 	return (dispatch) => { 
 		// enter the "loading" state
 		dispatch({ type: GET_START })
+		
+		const headers = {
+			authorization: localStorage.getItem('token'),
+		}
+		console.log("Header: " + headers.authorization)
 
-		axios.get('http://localhost:5000/api/friends')
+		axios.get('http://localhost:5000/api/friends', { headers })
 			.then((res) => {
 				dispatch({ type: GET_SUCCESS, payload: res.data })
 			})
@@ -38,7 +43,8 @@ export function login(username, password) {
 				dispatch({ type: LOGIN_SUCCESS })
 			})
 			.catch((err) => {
-				const payload = err.response ? err.response.data : err
+				console.log(err.response.data.error)
+				const payload = err.response ? err.response.data.error : err
 				dispatch({ type: LOGIN_FAILED, payload })
 			})
 	}
