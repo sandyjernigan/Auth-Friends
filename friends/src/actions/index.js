@@ -22,7 +22,7 @@ export function getData() {
 		}
 		console.log("Header: " + headers.authorization)
 
-		axios.get('http://localhost:5000/api/friends', { headers })
+		axios.get('http://localhost:5000/api/friends/', { headers })
 			.then((res) => {
 				dispatch({ type: GET_SUCCESS, payload: res.data })
 			})
@@ -39,7 +39,7 @@ export function login(username, password) {
 
 		return axios.post('http://localhost:5000/api/login', { username, password })
 			.then((res) => {
-				localStorage.setItem('token', res.data.token)
+				localStorage.setItem('token', res.data.payload)
 				dispatch({ type: LOGIN_SUCCESS })
 			})
 			.catch((err) => {
