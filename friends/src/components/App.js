@@ -3,7 +3,6 @@ import { Route, NavLink, withRouter } from "react-router-dom"
 import { Friend, Friends, CreateFriend, UpdateFriend } from "./friends/"
 import Home from './Home'
 
-
 class App extends React.Component {
   render() {
 

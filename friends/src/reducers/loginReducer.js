@@ -1,18 +1,32 @@
-import { ACTION } from '../actions';
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED } from '../actions';
 
 const initialState = {
-  stateItem: 0
+  errorMessage: null
 }
 
 // Our reducer that handles the action(s)
 export const loginReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION:
-      // This will be the action taken
-      return { 
-        ...state,
-        stateItem: 1
-      }
+		case LOGIN_START: {
+			return {
+				...state,
+				isLoading: true,
+			}
+		}
+		case LOGIN_SUCCESS: {
+			return {
+				...state,
+				isLoading: false,
+				errorMessage: null,
+			}
+		}
+		case LOGIN_FAILED: {
+			return {
+				...state,
+				isLoading: false,
+				errorMessage: action.payload.message,
+			}
+		}
     default:
       return state;
   }
