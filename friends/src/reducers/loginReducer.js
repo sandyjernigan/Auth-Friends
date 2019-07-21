@@ -1,4 +1,4 @@
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED } from '../actions';
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILED } from '../actions/loginActions';
 
 const initialState = {
   errMsg: null

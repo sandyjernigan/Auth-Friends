@@ -1,7 +1,8 @@
-import { GET_START, GET_SUCCESS, GET_FAILED } from "../actions";
+import { GET_START, GET_SUCCESS, GET_FAILED, GET_FRIEND } from "../actions/dataActions";
 
 const initialState = {
-    friends: [],
+	friends: [],
+	friend: {},
     isLoading: false,
     errMsg: null
 }
@@ -13,16 +14,15 @@ export const dataReducer = (state = initialState, action) => {
     case GET_START: {
 			return {
 				...state,
-				fetching: true,
+				isLoading: true,
 			}
     }
     // action type SUCCESS
 		case GET_SUCCESS: {
-			console.log("SUCCESS: " + action.payload)
 			return {
                 ...state,
                 friends: action.payload,
-				fetching: false,
+				isLoading: false,
 				errMsg: null
 			}
 		}
@@ -30,8 +30,17 @@ export const dataReducer = (state = initialState, action) => {
 		case GET_FAILED: {
 			return {
 				...state,
-				fetching: false,
+				isLoading: false,
 				errMsg: action.payload.message,
+			}
+		}
+	// action type SUCCESS
+		case GET_FRIEND: {
+			return {
+				...state,
+				friend: action.payload,
+				isLoading: false,
+				errMsg: null
 			}
 		}
     default:

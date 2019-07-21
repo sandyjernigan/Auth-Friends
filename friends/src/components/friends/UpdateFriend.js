@@ -1,25 +1,25 @@
 import React from "react"
-import axios from "axios"
+import { connect } from 'react-redux';
 import "./friendsform.css"
+// import actions
+import { getFriend } from '../../actions/dataActions';
+import { putData } from '../../actions/dataActions';
 
 class UpdateFriend extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: "",
-      age: null,
-      email: "",
-      errMsg: null
+      friend: { }, 
+      errMsg: null, 
+      putData: this.props.putData
     }
   }
 
   componentDidMount() {
-    const id = this.props.match.params.id 
-    const friend = this.props.friends.find(i => String(i.id) === id)
-      this.setState({ 
-        name: friend.name, 
-        age: friend.age, 
-        email: friend.email });
+		const id = this.props.match.params.id;
+		// call our action
+		this.props.getFriend(id);
+    this.setState({ friend: this.props.friend })
   }
 
   handleChange = e => {
@@ -30,37 +30,31 @@ class UpdateFriend extends React.Component {
 
   updateFriend = e => {
     e.preventDefault()
-    const id = this.props.match.params.id
-    const { name, age, email } = this.state
+    // const id = this.props.match.params.id
+    const { id, name, age, email } = this.state.friend
     const payload = { name, age, email }
-
-    axios.put(`http://localhost:5000/friends/${id}`, payload)
-      .then((response) => {
-        this.setState({
-          errMsg: null
-        })
-        this.props.updateFriends(response.data)
-        this.props.history.push("/friends")
-      })
+    
+    putData(id, payload)
+    this.props.history.push("/friends")
   }
 
   deleteFriend = e => {
     e.preventDefault()
-    const id = this.props.match.params.id
+    // const id = this.props.match.params.id
 
-    axios.delete(`http://localhost:5000/friends/${id}`)
-      .then((response) => {
-        this.setState({
-          errMsg: null
-        })
-        this.props.updateFriends(response.data)
-        this.props.history.push("/friends")
-      })
+    // axios.delete(`http://localhost:5000/friends/${id}`)
+    //   .then((response) => {
+    //     this.setState({
+    //       errMsg: null
+    //     })
+    //     this.props.updateFriends(response.data)
+    //     this.props.history.push("/friends")
+    //   })
   }
 
-
   render() {
-    const { name, age, email } = this.state
+    const { name, age, email } = this.state.friend
+    const putData = this.props.putData
 
     return (
       <div className="createfriend">
@@ -96,4 +90,13 @@ class UpdateFriend extends React.Component {
   }
 }
 
-export default UpdateFriend;
+const mapStateToProps = (state) => {
+	return {
+		friend: state.dataReducer.friend,
+		errMsg: state.dataReducer.msg
+	}
+}
+
+const mapDispatchToProps = { getFriend };
+
+export default connect(mapStateToProps,mapDispatchToProps)(UpdateFriend)
